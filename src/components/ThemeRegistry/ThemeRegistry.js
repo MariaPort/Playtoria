@@ -3,9 +3,11 @@ import * as React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import NextAppDirEmotionCacheProvider from './EmotionCache';
-import theme from './theme';
+import { useThemeContext } from '../ThemeContextProvider/ThemeContextProvider';
 
 export default function ThemeRegistry({ children }) {
+  const { theme } = useThemeContext();
+
   return (
     <NextAppDirEmotionCacheProvider options={{ key: 'mui' }}>
       <ThemeProvider theme={theme}>
