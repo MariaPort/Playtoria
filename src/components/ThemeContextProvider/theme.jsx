@@ -28,9 +28,6 @@ export const theme = {
 };
 
 export const getDesignTokens = (mode) => {
-    console.log('getDesignTokens');
-    console.log(mode);
-
     return {
         palette: {
             mode,
