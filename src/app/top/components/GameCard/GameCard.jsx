@@ -22,7 +22,8 @@ export function GameCard({data}) {
         storeType,
         storeUrl,
         gallery,
-        icon
+        icon,
+        isActive
     } = data;
 
     const parsedDate = React.useMemo(() => {
@@ -35,7 +36,10 @@ export function GameCard({data}) {
 
     return (
         <Box
-            sx={{width: '100%'}}
+            sx={{
+                width: '100%', 
+                maxWidth: '850px'
+            }}
         >
             <Card>
                 <Box
@@ -61,18 +65,49 @@ export function GameCard({data}) {
                     <CardContent
                         sx={{flexGrow: '1'}}
                     >
-                        <Typography variant="h5" gutterBottom>
-                            {name}
-                        </Typography>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'baseline'
+                            }}
+                        >
+                            <Typography variant="h5" gutterBottom>
+                                {name}
+                            </Typography>
+
+                            {
+                                !!isActive && (
+                                    <Link
+                                        target="_blank"
+                                        variant="body2"
+                                        href={storeUrl}
+                                        // onClick={() => {
+                                        //     console.info("To publisher's games list");
+                                        // }}
+                                    >
+                                        {`View in ${storeType === 'appstore' ? 'App Store' : 'Google Play'}`}
+                                    </Link>
+                                )
+                            }
+                        </Box>
+                        
+                        {/* 
+                        TODO: add publisher page
                         <Link
-                            component="button"
+                            target="_blank"
                             variant="body1"
+                            href="/"
                             // onClick={() => {
                             //     console.info("To publisher's games list");
                             // }}
                         >
-                        {publisherName}
-                        </Link>
+                            {publisherName}
+                        </Link> */}
+                        <Typography variant="body1" gutterBottom>
+                            {publisherName}
+                        </Typography>
                         <Typography variant="body2" gutterBottom>
                             Release date: {parsedDate}
                         </Typography>

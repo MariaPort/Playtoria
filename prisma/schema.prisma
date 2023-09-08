@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./base.db?connection_limit=1"
+}
+
+model Game {
+  id    Int     @id @default(autoincrement())
+  appId String  @unique
+  name  String
+  description String?
+  publisherName String?
+  publisherId String?
+  categoryName String?
+  storeType String
+  storeUrl String
+  sensotowerUrl String?
+  appmagicUrl String?
+  storespyUrl String
+  locations String?
+  price Int
+  icon String
+  releaseDate String
+  gallery String?
+  isActive Int
+  downloads Int?
+  revenue Int?
+  isHypercasual Int?
+}
+
+model Link {
+  id Int @id @default(autoincrement())
+  url String @unique
+  storeType String
+  appId String
+  isScraped Int
+  hasBadData Int @default(0)
+}
