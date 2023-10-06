@@ -13,7 +13,7 @@ const DATEFORMATS = {
     ddmmyyyy: 'DD-MM-YYYY'
 }
 
-export function GameCard({data}) {
+export function GameCard({data, isScreenshotsShown}) {
     const {
         id,
         name,
@@ -35,12 +35,7 @@ export function GameCard({data}) {
     }, [gallery]);
 
     return (
-        <Box
-            sx={{
-                width: '100%', 
-                maxWidth: '850px'
-            }}
-        >
+        <Box sx={{width: '100%'}}>
             <Card>
                 <Box
                     sx={{
@@ -52,8 +47,8 @@ export function GameCard({data}) {
                     <CardContent>
                         <CardMedia
                             sx={{
-                                width: '100px',
-                                height: '100px',
+                                width: {xs: '80px', md: '100px'},
+                                height:  {xs: '80px', md: '100px'},
                                 borderRadius: '5px'
                             }}                    
                             component="img"
@@ -62,24 +57,32 @@ export function GameCard({data}) {
                         />
                     </CardContent>
                     
-                    <CardContent
-                        sx={{flexGrow: '1'}}
-                    >
+                    <CardContent sx={{flexGrow: '1'}}>
                         <Box
                             sx={{
                                 display: 'flex',
-                                flexDirection: 'row',
+                                flexDirection: {xs: 'column', md: 'row'},
                                 justifyContent: 'space-between',
-                                alignItems: 'baseline'
+                                alignItems: 'baseline',
+                                marginBottom: {xs: '10px'}
                             }}
                         >
-                            <Typography variant="h5" gutterBottom>
+                            <Typography 
+                                sx={{
+                                    maxWidth: '360px',
+                                    paddingRight: '5px',
+                                    marginBottom: {xs: '0'}
+                                }}
+                                variant="h6"
+                                gutterBottom
+                            >
                                 {name}
                             </Typography>
 
                             {
                                 !!isActive && (
                                     <Link
+                                        sx={{width: '128px', textAlign: {xs: 'left', md: 'right'}}}
                                         target="_blank"
                                         variant="body2"
                                         href={storeUrl}
@@ -113,24 +116,28 @@ export function GameCard({data}) {
                         </Typography>
                     </CardContent>
                 </Box>
-                <CardContent>
-                <ImageList
-                    sx={{
-                        gridAutoFlow: 'column',
-                        gridTemplateColumns: 'repeat(auto-fill,minmax(160px, 200px)) !important',
-                        gridAutoColumns: 'minmax(160px, 200px)',
-                        overflowX: 'auto'
-                    }}
-                    >
-                        {parsedGallery.map((image, i) => (
-                            <ImageListItem key={i}>
-                                <img src={image} loading='lazy' />
-                            </ImageListItem>
-                        ))}
-                </ImageList>
-
-                </CardContent>
-                
+                {
+                    isScreenshotsShown
+                    ? (
+                        <CardContent>
+                            <ImageList
+                                sx={{
+                                    gridAutoFlow: 'column',
+                                    gridTemplateColumns: 'repeat(auto-fill,minmax(160px, 200px)) !important',
+                                    gridAutoColumns: 'minmax(160px, 200px)',
+                                    overflowX: 'auto'
+                                }}
+                                >
+                                    {parsedGallery.map((image, i) => (
+                                        <ImageListItem key={i}>
+                                            <img src={image} loading='lazy' />
+                                        </ImageListItem>
+                                    ))}
+                            </ImageList>
+                        </CardContent>
+                    )
+                    : null
+                }               
             </Card>    
         </Box>
     );

@@ -1,0 +1,1 @@
+export {searchGamesData} from './actions';

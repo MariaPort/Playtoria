@@ -1,4 +1,5 @@
 'use client'
+
 import * as React from 'react';
 import Link from 'next/link';
 import AppBar from '@mui/material/AppBar';
@@ -24,8 +25,8 @@ export const metadata = {
 };
 
 const PAGES = [
-    {text: 'Home', href: '/', icon: HomeIcon},
-    {text: 'Top Charts', href: '/top', icon: EmojiEventsIcon},
+    //{text: 'Home', href: '/', icon: HomeIcon},
+    {text: 'Live View', href: '/liveView', icon: EmojiEventsIcon},
   ];
 
 // const LINKS = [
