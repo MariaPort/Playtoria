@@ -5,17 +5,15 @@ import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Link from '@mui/material/Link';
+import {Link as LinkMUI} from '@mui/material';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageList from '@mui/material/ImageList';
-
-const DATEFORMATS = {
-    ddmmyyyy: 'DD-MM-YYYY'
-}
+import {StyledLink} from '../../../../components';
+import {DATEFORMATS} from '../../../constants'
 
 export function GameCard({data, isScreenshotsShown}) {
     const {
-        id,
+        appId,
         name,
         publisherName,
         releaseDate,
@@ -67,21 +65,23 @@ export function GameCard({data, isScreenshotsShown}) {
                                 marginBottom: {xs: '10px'}
                             }}
                         >
-                            <Typography 
-                                sx={{
-                                    maxWidth: '360px',
-                                    paddingRight: '5px',
-                                    marginBottom: {xs: '0'}
-                                }}
-                                variant="h6"
-                                gutterBottom
-                            >
-                                {name}
-                            </Typography>
+                            <StyledLink href={`/overview/${appId}`}>
+                                <Typography 
+                                        sx={{
+                                            maxWidth: '360px',
+                                            paddingRight: '5px',
+                                            marginBottom: {xs: '0'}
+                                        }}
+                                        variant="h6"
+                                        gutterBottom
+                                >
+                                    {name}
+                                </Typography>
+                            </StyledLink>               
 
                             {
                                 !!isActive && (
-                                    <Link
+                                    <LinkMUI
                                         sx={{width: '128px', textAlign: {xs: 'left', md: 'right'}}}
                                         target="_blank"
                                         variant="body2"
@@ -91,7 +91,7 @@ export function GameCard({data, isScreenshotsShown}) {
                                         // }}
                                     >
                                         {`View in ${storeType === 'appstore' ? 'App Store' : 'Google Play'}`}
-                                    </Link>
+                                    </LinkMUI>
                                 )
                             }
                         </Box>

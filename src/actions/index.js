@@ -1,1 +1,4 @@
-export {searchGamesData} from './actions';
+export {
+    searchGamesData,
+    searchGameDataById
+} from './actions';

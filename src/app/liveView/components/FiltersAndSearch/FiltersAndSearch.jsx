@@ -232,7 +232,15 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                     <DateRangePicker onFilterChange={handleFilterChange}/>
                 </form>
         </Paper>
-    ), [category, handleCategoryChange, handleFilterChange, handleIsScreenShotsShownChange, handleSearchChange, isScreenshotsShown, storeType]);
+    ), [
+        category,
+        handleCategoryChange,
+        handleFilterChange,
+        handleIsScreenShotsShownChange,
+        handleSearchChange,
+        isScreenshotsShown,
+        storeType
+    ]);
     
     return (
         <>
@@ -251,7 +259,6 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                     sx={{display: {md: 'none'}}}
                     open={isDrawerOpen}
                     onClose={toggleDrawer()}
-                    onOpen={toggleDrawer()}
                     ModalProps={{
                         keepMounted: true
                     }}

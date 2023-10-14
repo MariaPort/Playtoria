@@ -1,8 +1,11 @@
 "use client"
 
 import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import {
+  List,
+  ListItem,
+  Box
+} from '@mui/material';
 
 import {GameCard} from '../GameCard';
 
@@ -36,7 +39,13 @@ export function GamesList({
                 </ListItem>
               )
             )
-          : "No Data"
+          : (
+            <Box 
+              sx={{marginTop: '5vh'}}
+            >
+              No Data Found
+            </Box>
+          )
         }
       </List>
   );

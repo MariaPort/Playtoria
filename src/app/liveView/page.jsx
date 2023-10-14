@@ -23,7 +23,6 @@ export default function LiveViewPage() {
   const [pagination, setPagination] = React.useState(DEFAULTPAGINATION);
 
   const handleFilterAndSearchChange = React.useCallback(async (newFormData) => {
-    console.log('handleFilterAndSearchChange');
     setGamesData([]);
     setPagination(DEFAULTPAGINATION);
     setIsBackdropOpen(true);
@@ -41,7 +40,6 @@ export default function LiveViewPage() {
   }, []);
 
   const handlePaginationChange = React.useCallback(async (event, value) => {
-    console.log('handlePaginationChange');
     setIsBackdropOpen(true);
     const newPagination = {
         ...pagination,
@@ -101,7 +99,7 @@ export default function LiveViewPage() {
             gamesData={gamesData}
             isScreenshotsShown={!!Number(isScreenshotsShown)}
           />
-         {gamesData ||  gamesData.length !== 0 
+         {gamesData && gamesData.length !== 0 
           ? (
             <Pagination
                 sx={{marginBottom: '15px'}}

@@ -4,3 +4,6 @@ export const DEFAULTPAGINATION = {
   count: 1,
   total: 0
 };
+export const DATEFORMATS = {
+  ddmmyyyy: 'DD-MM-YYYY'
+}

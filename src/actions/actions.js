@@ -29,9 +29,6 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
         }
     };
 
-    console.log('selectQuery');
-    console.log(selectQuery);
-
     if(searchData || Object.keys(searchData).length !== 0) {
         gamesData = await prisma.game.findMany({
             skip: skipValue,
@@ -61,4 +58,12 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
         data: gamesData,
         total: countResponse._count.id
     };
+});
+
+export const searchGameDataById = React.cache(async (appId) => {
+    const data = await prisma.game.findMany({
+        where: {appId}
+    });
+    
+    return data;
 });
