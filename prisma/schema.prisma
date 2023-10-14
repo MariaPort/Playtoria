@@ -38,4 +38,5 @@ model Link {
   appId String
   isScraped Int
   hasBadData Int @default(0)
+  updateDate String @default("2023-08-25T00:00:00.000Z")
 }
