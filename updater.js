@@ -1,4 +1,4 @@
-import {updateXMLLinks} from './xml-links-updater.js';
+const {updateXMLLinks} = require('./xml-links-updater.js');
 
 (async () => {
     await updateXMLLinks();

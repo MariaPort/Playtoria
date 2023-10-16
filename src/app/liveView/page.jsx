@@ -32,7 +32,7 @@ export default function LiveViewPage() {
     setGamesData(response.data);
     setPagination({
         page: 1,
-        count: Math.ceil(response.total / ITEMSPERPAGE),
+        count: response.total > ITEMSPERPAGE ? Math.ceil(response.total / ITEMSPERPAGE) : 1,
         total: response.total
     });
 

@@ -1,4 +1,6 @@
 export {
     searchGamesData,
-    searchGameDataById
+    searchGameDataById,
+    getGamesDataIdsBatch,
+    getGamesDataIdsCount
 } from './actions';

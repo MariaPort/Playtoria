@@ -19,7 +19,17 @@ const nextConfig = {
     },
     experimental: {
       serverActions: true
-    }
+    },
+    rewrites: async () => [
+      {
+        source: '/dynamic-sitemap.xml',
+        destination: '/dynamic-sitemap',
+      },
+      {
+        source: '/dynamic-sitemap-:page.xml',
+        destination: '/dynamic-sitemap/:page',
+      },
+    ],
   };
 
 module.exports = nextConfig

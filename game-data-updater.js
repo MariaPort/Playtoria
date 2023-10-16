@@ -1,15 +1,15 @@
-import axios from 'axios';
-import * as cheerio from 'cheerio';
-import {PrismaClient} from '@prisma/client';
-import {
+const axios = require('axios');
+const cheerio = require('cheerio');
+const {PrismaClient} = require('@prisma/client');
+const {
     sleep,
     formatAppMagicLink,
     formatSensorTowerLink,
-} from './utils.js';
+} = require('./utils.js');
 
 const prisma = new PrismaClient();
 
-export const updateGamesData = async (newLinksAdded) => {
+const updateGamesData = async (newLinksAdded) => {
     const getGameLinksfromDB = async (howMany) => {
         try {
             const gameLinks = await prisma.link.findMany({
@@ -197,3 +197,5 @@ export const updateGamesData = async (newLinksAdded) => {
 
     startScrapingGameData(newLinksAdded);
 };
+
+module.exports = {updateGamesData}

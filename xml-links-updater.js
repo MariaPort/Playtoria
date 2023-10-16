@@ -1,12 +1,12 @@
-import axios from "axios";
-import * as cheerio from "cheerio";
-import {PrismaClient} from '@prisma/client';
-import {sleep} from './utils.js';
-import {updateGamesData} from './game-data-updater.js';
+const axios = require('axios');
+const cheerio = require('cheerio');
+const {PrismaClient} = require('@prisma/client');
+const {sleep} = require('./utils.js');
+const {updateGamesData} = require('./game-data-updater.js');
 
 const prisma = new PrismaClient();
 
-export const updateXMLLinks = async () => {
+const updateXMLLinks = async () => {
     const numberOfItterations = 5;
     let newLinksAdded = 0;
 
@@ -109,3 +109,5 @@ export const updateXMLLinks = async () => {
     const sitemapLinks = await getSitemapLinks();
     await startScrapingGameLinks(sitemapLinks);
 };
+
+module.exports = {updateXMLLinks}
