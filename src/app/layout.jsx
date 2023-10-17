@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import SmartToyIcon from '@mui/icons-material/SmartToy';
-import HomeIcon from '@mui/icons-material/Home';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -17,12 +16,7 @@ import Button from '@mui/material/Button';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import NightModeToggle from '@/components/NightModeToggle/NightModeToggle';
-import { ThemeContextProvider } from '@/components/ThemeContextProvider/ThemeContextProvider';
-
-export const metadata = {
-  title: 'Next.js App Router + Material UI v5',
-  description: 'Next.js App Router + Material UI v5',
-};
+import {ThemeContextProvider} from '@/components/ThemeContextProvider/ThemeContextProvider';
 
 const PAGES = [
     //{text: 'Home', href: '/', icon: HomeIcon},
