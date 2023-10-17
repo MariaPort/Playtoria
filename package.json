@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run prismaGen && next build",
     "start": "next start",
     "lint": "next lint",
+    "prismaGen": "npx prisma generate",
     "migrate": "npx prisma migrate dev --name init",
     "update": "node updater.js",
     "postbuild": "next-sitemap"
