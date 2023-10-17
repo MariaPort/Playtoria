@@ -11,19 +11,21 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
 
     const selectQuery = {
         where: {
-                ...searchData.name ? {name: {contains: searchData.name}} : {},
-                ...searchData.publisherName ? {publisherName: {contains: searchData.publisherName}} : {},
-                ...searchData.description ? {description: {contains: searchData.description}} : {},
-                ...searchData.storeType && searchData.storeType !== 'all' ? {storeType: {contains: searchData.storeType}} : {},
-                ...searchData.category ? {categoryName: {contains: searchData.category}} : {},
-                ...searchData.startDate ||  searchData.endDate 
+            AND: [
+                searchData.name ? {name: {contains: searchData.name}} : {},
+                searchData.publisherName ? {publisherName: {contains: searchData.publisherName}} : {},
+                searchData.description ? {description: {contains: searchData.description}} : {},
+                searchData.storeType && searchData.storeType !== 'all' ? {storeType: {contains: searchData.storeType}} : {},
+                searchData.category ? {categoryName: {contains: searchData.category}} : {},
+                searchData.startDate ||  searchData.endDate 
                     ? {
                         releaseDate: {
                             ...searchData.startDate ? {gte: searchData.startDate} : {},
                             ...searchData.endDate ? {lte: searchData.endDate} : {}
                         }
                     }
-                    : {}          
+                    : {}
+            ]        
         }
     };
 
