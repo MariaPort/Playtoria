@@ -2,6 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
+    assetPrefix: ".",
     modularizeImports: {
       '@mui/icons-material': {
         transform: '@mui/icons-material/{{member}}',

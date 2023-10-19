@@ -131,9 +131,16 @@ const updateGamesData = async (newLinksAdded) => {
         const inserts = [];
 
         gamesData.forEach(async gameData => {
-            inserts.push(prisma.game.create({
-                data: {...gameData},
-            }));
+            try {
+                inserts.push(prisma.game.create({
+                    data: {...gameData},
+                }));
+            } catch (error) {
+                inserts.push(prisma.game.update({
+                    where: {appId: gameData.appId},
+                    data: {...gameData},
+                }));
+            }
         });
         
         try {
