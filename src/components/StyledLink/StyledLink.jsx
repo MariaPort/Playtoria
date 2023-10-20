@@ -3,7 +3,7 @@ import Link from 'next/link';
 import {grey} from "@mui/material/colors";
 import {useThemeContext} from "../ThemeContextProvider/ThemeContextProvider";
 
-export function StyledLink({href, styles, children}) {
+export function StyledLink({href, styles, openInNewTab = false, children}) {
     const [isHovered, setIsHovered] = React.useState(false);
     const {mode} = useThemeContext();
 
@@ -21,6 +21,7 @@ export function StyledLink({href, styles, children}) {
     return (
         <Link
             href={href}
+            target={openInNewTab ? "_blank" : "_self"}
             style={{
                 color: isHovered ? hoveredColorByTheme : colorByTheme,
                 textDecoration: isHovered ? 'underline' : 'none',

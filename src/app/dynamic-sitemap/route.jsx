@@ -13,7 +13,7 @@ export async function GET (request) {
 
   const sitemaps = Array(amountOfSitemapFiles)
     .fill('')
-    .map((v, index) => `www.playtoria.com/dynamic-sitemap-${index}.xml`);
+    .map((v, index) => `https://playtoria.com/dynamic-sitemap-${index}.xml`);
 
   return getServerSideSitemapIndex(sitemaps);
 };

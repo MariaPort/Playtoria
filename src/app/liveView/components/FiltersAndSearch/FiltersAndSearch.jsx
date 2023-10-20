@@ -154,9 +154,9 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
     }, [onIsScreenshotsShownChange]);
 
     const toggleDrawer = () => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
-        }
+        // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+        //   return;
+        // }
     
         setIsDrawerOpen(!isDrawerOpen);
     };

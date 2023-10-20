@@ -7,7 +7,7 @@ import {ITEMSPERPAGE} from '../app/constants';
 export const searchGamesData = React.cache(async (searchData = null, pagination) => {
     let gamesData = [];
     let countResponse = {};
-    const skipValue = pagination.page > 1 ? (pagination.page || 1) * ITEMSPERPAGE : 0;
+    const skipValue = pagination.page > 1 ? (pagination.page - 1) * ITEMSPERPAGE : 0;
 
     const selectQuery = {
         where: {
@@ -31,6 +31,9 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
 
     if(searchData || Object.keys(searchData).length !== 0) {
         gamesData = await prisma.game.findMany({
+            orderBy: {
+                releaseDate: 'desc',
+            },
             skip: skipValue,
             take: ITEMSPERPAGE,
             ...selectQuery,

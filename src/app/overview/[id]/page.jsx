@@ -256,7 +256,7 @@ function OverviewID() {
                     display: 'block'
                 }}
                 variant="rounded"
-                animation="vawe"
+                animation="wave"
                 height={350}
             />
         </>        

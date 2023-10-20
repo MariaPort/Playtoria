@@ -20,7 +20,7 @@ export async function GET (request, context) {
   }
 
   const fields = gamesData.map(({appId}) => ({
-    loc: `www.playtoria.com/overview/${appId}`
+    loc: `https://playtoria.com/overview/${appId}`
   }));
 
   return getServerSideSitemap(fields);

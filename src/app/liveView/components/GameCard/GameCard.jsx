@@ -65,7 +65,7 @@ export function GameCard({data, isScreenshotsShown}) {
                                 marginBottom: {xs: '10px'}
                             }}
                         >
-                            <StyledLink href={`/overview/${appId}`}>
+                            <StyledLink href={`/overview/${appId}`} openInNewTab>
                                 <Typography 
                                         sx={{
                                             maxWidth: '360px',

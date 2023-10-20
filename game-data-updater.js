@@ -116,8 +116,6 @@ const updateGamesData = async (newLinksAdded) => {
         
         try {
             const results = await Promise.allSettled(gameDataPromises);
-            console.log('RESULTS');
-            console.log(results);
 
             return results
                 .filter(result => result.status === 'fulfilled')

@@ -47,6 +47,7 @@ export default function LiveViewPage() {
     }
 
     setPagination(newPagination);
+    window.scrollTo(0, 0);
     const response = await searchGamesData(formData, newPagination);
 
     setGamesData(response.data);
@@ -105,10 +106,10 @@ export default function LiveViewPage() {
                 sx={{marginBottom: '15px'}}
                 variant="outlined" 
                 shape="rounded"
-                siblingCount={0}
+                size="small"
                 onChange={handlePaginationChange}
                 count={pagination.count} 
-                page={pagination.page}            
+                page={pagination.page}
             />
           )
           : null}
