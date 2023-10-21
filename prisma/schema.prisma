@@ -29,6 +29,8 @@ model Game {
   downloads Int?
   revenue Int?
   isHypercasual Int?
+
+  @@index(fields: [releaseDate])
 }
 
 model Link {

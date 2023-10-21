@@ -144,6 +144,7 @@ const updateGamesData = async (newLinksAdded) => {
         try {
             await prisma.$transaction(inserts);
         } catch (error) {
+            console.log('error while adding transaction');
             console.log(error.message);
         } finally {
             await prisma.$disconnect();

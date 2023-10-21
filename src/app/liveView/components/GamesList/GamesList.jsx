@@ -4,7 +4,8 @@ import * as React from 'react';
 import {
   List,
   ListItem,
-  Box
+  Box,
+  Typography
 } from '@mui/material';
 
 import {GameCard} from '../GameCard';
@@ -17,6 +18,7 @@ export function GamesList({
   return (
       <List 
         sx={{
+          width: '80%',
           maxWidth: '850px',
           paddingTop: '0'
         }}>
@@ -43,7 +45,15 @@ export function GamesList({
             <Box 
               sx={{marginTop: '5vh'}}
             >
-              No Data Found
+              <Typography
+                sx={{
+                  textAlign: 'center'
+                }}
+                variant="h6"
+                gutterBottom
+              >
+                No Data Found
+              </Typography>
             </Box>
           )
         }
