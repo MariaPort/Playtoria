@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./base.db"
+  url      = "file:./base.db?connection_limit=3"
 }
 
 model Game {
