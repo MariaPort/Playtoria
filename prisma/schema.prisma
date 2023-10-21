@@ -30,7 +30,7 @@ model Game {
   revenue Int?
   isHypercasual Int?
 
-  @@index(fields: [releaseDate])
+  @@index(fields: [releaseDate, categoryName, name, publisherName, storeType])
 }
 
 model Link {

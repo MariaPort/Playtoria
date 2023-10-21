@@ -28,8 +28,8 @@ const categories = [
         value: 'all'
     },
     {
-        name: 'Game',
-        value: 'Game'
+        name: 'Games',
+        value: 'Games'
     },
     {
         name: 'Action',

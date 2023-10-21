@@ -16,7 +16,7 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
                 searchData.publisherName ? {publisherName: {contains: searchData.publisherName}} : {},
                 searchData.description ? {description: {contains: searchData.description}} : {},
                 searchData.storeType && searchData.storeType !== 'all' ? {storeType: {contains: searchData.storeType}} : {},
-                searchData.category ? {categoryName: {contains: searchData.category}} : {},
+                searchData.category && searchData.category !== 'all' ? {categoryName: {contains: searchData.category}} : {},
                 searchData.startDate ||  searchData.endDate 
                     ? {
                         releaseDate: {
@@ -29,11 +29,11 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
         }
     };
 
-    if(searchData || Object.keys(searchData).length !== 0) {
+    if(searchData && Object.keys(searchData).length !== 0) {
         gamesData = await prisma.game.findMany({
-            orderBy: {
-                releaseDate: 'desc',
-            },
+            // orderBy: {
+            //     releaseDate: 'desc',
+            // },
             skip: skipValue,
             take: ITEMSPERPAGE,
             ...selectQuery,
@@ -47,8 +47,11 @@ export const searchGamesData = React.cache(async (searchData = null, pagination)
         });
     } else {
         gamesData = await prisma.game.findMany({
+            orderBy: {
+                releaseDate: 'desc',
+            },
             skip: skipValue,
-            take: 100
+            take: ITEMSPERPAGE
         });
         countResponse = await prisma.game.aggregate({
             _count: {
