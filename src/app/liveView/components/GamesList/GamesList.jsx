@@ -1,37 +1,35 @@
-"use client"
+'use client';
 
 import * as React from 'react';
 import {
   List,
   ListItem,
   Box,
-  Typography
+  Typography,
 } from '@mui/material';
 
-import {GameCard} from '../GameCard';
+import { GameCard } from '../GameCard';
 
 export function GamesList({
   gamesData,
   isScreenshotsShown,
 }) {
-
   return (
-      <List 
+      <List
         sx={{
           width: '80%',
           maxWidth: '850px',
-          paddingTop: '0'
+          paddingTop: '0',
         }}>
         {
           gamesData.length > 0
-          ? gamesData.map(gameData => 
-              (
+            ? gamesData.map((gameData) => (
                 <ListItem
                   key={gameData.id}
                   sx={{
                     paddingTop: '0',
-                    paddingLeft: {xs: '0'},
-                    paddingRight: {xs: '0'}
+                    paddingLeft: { xs: '0' },
+                    paddingRight: { xs: '0' },
                   }}
                 >
                   <GameCard
@@ -39,15 +37,14 @@ export function GamesList({
                     isScreenshotsShown={isScreenshotsShown}
                   />
                 </ListItem>
-              )
-            )
-          : (
-            <Box 
-              sx={{marginTop: '5vh'}}
+            ))
+            : (
+            <Box
+              sx={{ marginTop: '5vh' }}
             >
               <Typography
                 sx={{
-                  textAlign: 'center'
+                  textAlign: 'center',
                 }}
                 variant="h6"
                 gutterBottom
@@ -55,7 +52,7 @@ export function GamesList({
                 No Data Found
               </Typography>
             </Box>
-          )
+            )
         }
       </List>
   );

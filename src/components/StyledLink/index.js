@@ -1,1 +1,1 @@
-export {StyledLink} from './StyledLink.jsx';
+export { StyledLink } from './StyledLink';

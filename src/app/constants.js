@@ -1,9 +1,9 @@
-export const ITEMSPERPAGE = 20;
-export const DEFAULTPAGINATION = {
+export const ITEMS_PER_PAGE = 20;
+export const DEFAULT_PAGINATION = {
   page: 1,
   count: 1,
-  total: 0
+  total: 0,
 };
-export const DATEFORMATS = {
-  ddmmyyyy: 'DD-MM-YYYY'
-}
+export const DATE_FORMATS = {
+  ddmmyyyy: 'DD-MM-YYYY',
+};

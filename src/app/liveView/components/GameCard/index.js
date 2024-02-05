@@ -1,1 +1,1 @@
-export {GameCard} from './GameCard.jsx';
+export { GameCard } from './GameCard';

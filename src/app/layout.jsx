@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
@@ -14,14 +14,14 @@ import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
-import NightModeToggle from '@/components/NightModeToggle/NightModeToggle';
-import {ThemeContextProvider} from '@/components/ThemeContextProvider/ThemeContextProvider';
+import ThemeRegistry from '../components/ThemeRegistry/ThemeRegistry';
+import NightModeToggle from '../components/NightModeToggle/NightModeToggle';
+import { ThemeContextProvider } from '../components/ThemeContextProvider/ThemeContextProvider';
 
 const PAGES = [
-    //{text: 'Home', href: '/', icon: HomeIcon},
-    {text: 'Live View', href: '/liveView', icon: EmojiEventsIcon},
-  ];
+  // {text: 'Home', href: '/', icon: HomeIcon},
+  { text: 'Live View', href: '/liveView', icon: EmojiEventsIcon },
+];
 
 // const LINKS = [
 //   {text: 'Home', href: '/', icon: HomeIcon},
@@ -101,7 +101,7 @@ export default function RootLayout({ children }) {
                         display: { xs: 'block', md: 'none' },
                       }}
                     >
-                      {PAGES.map(({text, href}) => (
+                      {PAGES.map(({ text, href }) => (
                         <MenuItem key={text} onClick={handleCloseNavMenu} component={Link} href={href}>
                           <Typography textAlign="center">{text}</Typography>
                         </MenuItem>
@@ -127,7 +127,7 @@ export default function RootLayout({ children }) {
                     PLAYTORIA
                   </Typography>
                   <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                    {PAGES.map(({text, href}) => (
+                    {PAGES.map(({ text, href }) => (
                       <Button
                         key={text}
                         onClick={handleCloseNavMenu}
@@ -144,7 +144,7 @@ export default function RootLayout({ children }) {
                 </Toolbar>
               </Container>
             </AppBar>
-            
+
             <Box component="main">
               {children}
             </Box>

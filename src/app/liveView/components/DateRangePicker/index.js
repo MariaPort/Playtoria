@@ -1,1 +1,1 @@
-export {DateRangePicker} from './DateRangePicker.jsx';
+export { DateRangePicker } from './DateRangePicker';

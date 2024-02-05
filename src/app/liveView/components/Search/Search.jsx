@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import * as React from 'react';
 import FormControl from '@mui/material/FormControl';
@@ -7,46 +7,46 @@ import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
- 
-export function Search({onSearchChange}) {
-    const ref = React.useRef(null);
-    const [name, setName] = React.useState('');
-    const [publisherName, setPublisherName] = React.useState('');
-    const [description, setDescription] = React.useState('');
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
+export function Search({ onSearchChange }) {
+  const ref = React.useRef(null);
+  const [name, setName] = React.useState('');
+  const [publisherName, setPublisherName] = React.useState('');
+  const [description, setDescription] = React.useState('');
 
-        onSearchChange({
-            name,
-            publisherName,
-            description
-        });
-      };
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
 
-    const handleResetForm = () => {
-        setName('');
-        setPublisherName('');
-        setDescription('');
+    onSearchChange({
+      name,
+      publisherName,
+      description,
+    });
+  };
 
-        onSearchChange({
-            name: '',
-            publisherName: '',
-            description: ''
-        })
-    };
+  const handleResetForm = () => {
+    setName('');
+    setPublisherName('');
+    setDescription('');
 
-    return (
-        <Box sx={{marginBottom: "25px", paddingLeft: 0}}>
+    onSearchChange({
+      name: '',
+      publisherName: '',
+      description: '',
+    });
+  };
+
+  return (
+        <Box sx={{ marginBottom: '25px', paddingLeft: 0 }}>
             <form
                 ref={ref}
                 onSubmit={handleFormSubmit}
             >
                 <Box sx={{
-                    display: "flex",
-                    flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
-                    <FormControl sx={{m: 1, width: 250}} variant="outlined">
+                    <FormControl sx={{ m: 1, width: 250 }} variant="outlined">
                         <InputLabel htmlFor="searchName">Name</InputLabel>
                         <OutlinedInput
                             id="searchName"
@@ -58,7 +58,7 @@ export function Search({onSearchChange}) {
                         />
                     </FormControl>
 
-                    <FormControl sx={{m: 1, width: 250}} variant="outlined">
+                    <FormControl sx={{ m: 1, width: 250 }} variant="outlined">
                         <InputLabel htmlFor="searchPublisher">Publisher</InputLabel>
                         <OutlinedInput
                             id="searchPublisher"
@@ -70,7 +70,7 @@ export function Search({onSearchChange}) {
                         />
                     </FormControl>
 
-                    <FormControl sx={{m: 1, width: 250}} variant="outlined">
+                    <FormControl sx={{ m: 1, width: 250 }} variant="outlined">
                         <InputLabel htmlFor="searchPublisher">Description</InputLabel>
                         <OutlinedInput
                             id="searchDescription"
@@ -80,18 +80,18 @@ export function Search({onSearchChange}) {
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                    </FormControl>     
+                    </FormControl>
                 </Box>
-                <Stack 
+                <Stack
                     sx={{
-                        marginLeft: "10px",
-                        marginTop: "15px",
-                        justifyContent: "start"
+                      marginLeft: '10px',
+                      marginTop: '15px',
+                      justifyContent: 'start',
                     }}
-                    spacing={2} 
+                    spacing={2}
                     direction="row"
                 >
-                    <Button 
+                    <Button
                         variant="contained"
                         size="small"
                         type="submit"
@@ -105,8 +105,8 @@ export function Search({onSearchChange}) {
                     >
                         Reset
                     </Button>
-                </Stack>          
+                </Stack>
             </form>
         </Box>
-    );
+  );
 }

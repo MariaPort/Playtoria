@@ -1,9 +1,10 @@
-"use client"
+'use client';
 
 import * as React from 'react';
-import {Global} from "@emotion/react";
-import {styled} from "@mui/material/styles";
-import {grey} from "@mui/material/colors";
+import { useRouter } from 'next/navigation';
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 import Paper from '@mui/material/Paper';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -17,164 +18,172 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 
-import {
-    Search,
-    DateRangePicker
-} from '../index';
+import { Search } from '../Search';
+import { DateRangePicker } from '../DateRangePicker';
 
-const categories = [
-    {
-        name: 'All',
-        value: 'all'
-    },
-    {
-        name: 'Games',
-        value: 'Games'
-    },
-    {
-        name: 'Action',
-        value: 'Action'
-    },
-    {
-        name: 'Board',
-        value: 'Board'
-    },
-    {
-        name: 'Card',
-        value: 'Card'
-    },
-    {
-        name: 'Casino',
-        value: 'Casino'
-    },
-    {
-        name: 'Casual',
-        value: 'Casual'
-    },
-    {
-        name: 'Family',
-        value: 'Family'
-    },
-    {
-        name: 'Arcade',
-        value: 'Arcade'
-    },
-    {
-        name: 'Music',
-        value: 'Music'
-    },
-    {
-        name: 'Puzzle',
-        value: 'Puzzle'
-    },
-    {
-        name: 'Racing',
-        value: 'Racing'
-    },
-    {
-        name: 'Role Playing',
-        value: 'Role Playing'
-    },
-    {
-        name: 'Simulation',
-        value: 'Simulation'
-    },
-    {
-        name: 'Sport',
-        value: 'Sport'
-    },
-    {
-        name: 'Strategy',
-        value: 'Strategy'
-    },
-    {
-        name: 'Trivia',
-        value: 'Trivia'
-    },
-    {
-        name: 'Word',
-        value: 'Word'
-    },
-    {
-        name: 'Entertainment',
-        value: 'Entertainment'
-    },
-    {
-        name: 'Adventure',
-        value: 'Adventure'
-    },
-    {
-        name: 'Education',
-        value: 'Education'
-    }
-  ];
+export const categories = [
+  {
+    name: 'All',
+    value: 'all',
+  },
+  {
+    name: 'Games',
+    value: 'Games',
+  },
+  {
+    name: 'Action',
+    value: 'Action',
+  },
+  {
+    name: 'Board',
+    value: 'Board',
+  },
+  {
+    name: 'Card',
+    value: 'Card',
+  },
+  {
+    name: 'Casino',
+    value: 'Casino',
+  },
+  {
+    name: 'Casual',
+    value: 'Casual',
+  },
+  {
+    name: 'Family',
+    value: 'Family',
+  },
+  {
+    name: 'Arcade',
+    value: 'Arcade',
+  },
+  {
+    name: 'Music',
+    value: 'Music',
+  },
+  {
+    name: 'Puzzle',
+    value: 'Puzzle',
+  },
+  {
+    name: 'Racing',
+    value: 'Racing',
+  },
+  {
+    name: 'Role Playing',
+    value: 'Role Playing',
+  },
+  {
+    name: 'Simulation',
+    value: 'Simulation',
+  },
+  {
+    name: 'Sport',
+    value: 'Sport',
+  },
+  {
+    name: 'Strategy',
+    value: 'Strategy',
+  },
+  {
+    name: 'Trivia',
+    value: 'Trivia',
+  },
+  {
+    name: 'Word',
+    value: 'Word',
+  },
+  {
+    name: 'Entertainment',
+    value: 'Entertainment',
+  },
+  {
+    name: 'Adventure',
+    value: 'Adventure',
+  },
+  {
+    name: 'Education',
+    value: 'Education',
+  },
+];
 
-export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
-    onFormsValueChange = () => {},
-    isScreenshotsShown,
-    onIsScreenshotsShownChange,
-}) {
-    const [filterAndSearchData, setFilterAndSearchData] = React.useState({});
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+export const FiltersAndSearch = React.memo(({
+  searchParams,
+  onFormsValueChange = () => {},
+  // isScreenshotsShown,
+  // onIsScreenshotsShownChange,
+}) => {
+  const router = useRouter();
 
-    const [storeType, setStoreType] = React.useState('all');
-    const [category, setCategory] = React.useState('all');
-    
+  const [filterAndSearchData, setFilterAndSearchData] = React.useState(searchParams || {});
+  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
-    React.useEffect(() => {
-        onFormsValueChange(filterAndSearchData);
-    }, [filterAndSearchData, onFormsValueChange]);
+  const [storeType, setStoreType] = React.useState('all');
+  const [category, setCategory] = React.useState('all');
 
-    const handleSearchChange = React.useCallback((searchData) => {    
-        const newSearchAndFilterData = {
-            ...filterAndSearchData,
-            ...searchData
-        }
+  React.useEffect(() => {
+    onFormsValueChange();
+  }, [onFormsValueChange]);
 
-        setFilterAndSearchData(newSearchAndFilterData);
-    }, [filterAndSearchData]);
+  const handleFilterAndSearchDataChanged = React.useCallback((newFilterAndSearchData) => {
+    const newSearchParams = new URLSearchParams(newFilterAndSearchData);
+    router.push(`/liveView?${newSearchParams.toString()}`);
 
-    const handleFilterChange = React.useCallback((filterData) => {
-        if (filterData.target.name === 'screenshots') return;
+    // onFormsValueChange();
+  }, [router]);
 
-        setFilterAndSearchData({
-            ...filterAndSearchData,
-            [filterData.target.name]: filterData.target.value,
-        });
-       
-    }, [filterAndSearchData]);
-      
-    const handleCategoryChange = React.useCallback((event) => {
-        setCategory(event.target.value)
-        handleFilterChange(event);
-    }, [handleFilterChange]);
-
-    const handleIsScreenShotsShownChange = React.useCallback((event) => {
-        onIsScreenshotsShownChange(event.target.value);
-    }, [onIsScreenshotsShownChange]);
-
-    const toggleDrawer = () => (event) => {
-        // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-        //   return;
-        // }
-    
-        setIsDrawerOpen(!isDrawerOpen);
+  const handleSearchChange = React.useCallback((searchData) => {
+    const newFilterAndSearchData = {
+      ...filterAndSearchData,
+      ...searchData,
     };
 
-    const Puller = styled(Box)(({ theme }) => ({
-        width: 6,
-        height: 30,
-        backgroundColor: '#fff',
-        borderRadius: 3,
-        backgroundColor: theme.palette.mode === "light" ? grey[200] : grey[900]
-      }));
+    setFilterAndSearchData(newFilterAndSearchData);
+    handleFilterAndSearchDataChanged(newFilterAndSearchData);
+  }, [filterAndSearchData, handleFilterAndSearchDataChanged]);
 
-    const innerForms = React.useMemo(() => (
+  const handleFilterChange = React.useCallback((filterData) => {
+    if (filterData.target.name === 'screenshots') return;
+
+    const newFilterAndSearchData = {
+      ...filterAndSearchData,
+      [filterData.target.name]: filterData.target.value,
+    };
+    setFilterAndSearchData(newFilterAndSearchData);
+    handleFilterAndSearchDataChanged(newFilterAndSearchData);
+  }, [filterAndSearchData, handleFilterAndSearchDataChanged]);
+
+  const handleCategoryChange = React.useCallback((event) => {
+    setCategory(event.target.value);
+    handleFilterChange(event);
+  }, [handleFilterChange]);
+
+  //   const handleIsScreenShotsShownChange = React.useCallback((event) => {
+  //     onIsScreenshotsShownChange(event.target.value);
+  //   }, [onIsScreenshotsShownChange]);
+
+  const toggleDrawer = () => () => {
+    // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+    //   return;
+    // }
+
+    setIsDrawerOpen(!isDrawerOpen);
+  };
+
+  const Puller = styled(Box)(({ theme }) => ({
+    width: 6,
+    height: 30,
+    borderRadius: 3,
+    backgroundColor: theme.palette.mode === 'light' ? grey[200] : grey[900],
+  }));
+
+  const innerForms = React.useMemo(() => (
         <Paper
                 sx={{
-                    p: '10px 12px',
-                    maxWidth: '300px',
-                    height: '100%'
+                  p: '10px 12px',
+                  maxWidth: '300px',
+                  height: '100%',
                 }}
             >
                 <Search onSearchChange={handleSearchChange} />
@@ -194,7 +203,7 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                         </RadioGroup>
                     </FormControl> */}
 
-                    <FormControl sx={{m: 1, marginBottom: '25px'}}>
+                    <FormControl sx={{ m: 1, marginBottom: '25px' }}>
                         <FormLabel id="storetype">Store Type</FormLabel>
                         <RadioGroup
                             aria-labelledby="storetype"
@@ -208,7 +217,7 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                         </RadioGroup>
                     </FormControl>
 
-                    <FormControl sx={{ m: 1, width: 250, marginBottom: '25px'}}>
+                    <FormControl sx={{ m: 1, width: 250, marginBottom: '25px' }}>
                         <InputLabel id="category">Category</InputLabel>
                         <Select
                             labelId="category"
@@ -218,7 +227,7 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                             value={category}
                             onChange={handleCategoryChange}
                         >
-                            {categories.map(({name, value}) => (
+                            {categories.map(({ name, value }) => (
                                 <MenuItem
                                     key={name}
                                     value={value}
@@ -232,58 +241,50 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                     <DateRangePicker onFilterChange={handleFilterChange}/>
                 </form>
         </Paper>
-    ), [
-        category,
-        handleCategoryChange,
-        handleFilterChange,
-        handleIsScreenShotsShownChange,
-        handleSearchChange,
-        isScreenshotsShown,
-        storeType
-    ]);
-    
-    return (
+  ), [category, handleCategoryChange, handleFilterChange, handleSearchChange, storeType]);
+
+  return (
         <>
             <Global
                 styles={{
-                ".MuiDrawer-root > .MuiPaper-root": {
-                    overflow: "visible"
-                }
+                  '.MuiDrawer-root > .MuiPaper-root': {
+                    overflow: 'visible',
+                  },
                 }}
             />
-            <Box sx={{display: {xs: 'none', md: 'block'}, flexGrow: '1'}}>
+            <Box sx={{ display: { xs: 'none', md: 'block' }, flexGrow: '1' }}>
                 {innerForms}
             </Box>
-            <Box sx={{display: {xs: 'block', md: 'none'}, flexGrow: '1'}}>
+            <Box sx={{ display: { xs: 'block', md: 'none' }, flexGrow: '1' }}>
                 <Drawer
-                    sx={{display: {md: 'none'}}}
+                    sx={{ display: { md: 'none' } }}
                     open={isDrawerOpen}
                     onClose={toggleDrawer()}
                     ModalProps={{
-                        keepMounted: true
+                      keepMounted: true,
                     }}
                 >
                     <Box
                         sx={{
-                            position: 'absolute',
-                            borderTopLeftRadius: 8,
-                            borderTopRightRadius: 8,
-                            visibility: 'visible',
-                            width: '100%',
-                            right: 0,
-                            left: 0
+                          position: 'absolute',
+                          borderTopLeftRadius: 8,
+                          borderTopRightRadius: 8,
+                          visibility: 'visible',
+                          width: '100%',
+                          right: 0,
+                          left: 0,
                         }}
                     >
-                        <Button 
+                        <Button
                             sx={{
-                                padding: "9px 7px",
-                                zIndex: '-1',
-                                minWidth: 0,
-                                position: 'absolute',
-                                top: '80px',
-                                right: '-18px'
+                              padding: '9px 7px',
+                              zIndex: '-1',
+                              minWidth: 0,
+                              position: 'absolute',
+                              top: '80px',
+                              right: '-18px',
                             }}
-                            onClick={toggleDrawer()} 
+                            onClick={toggleDrawer()}
                             variant="contained"
                         >
                             <Puller />
@@ -292,6 +293,8 @@ export const FiltersAndSearch = React.memo(function FiltersAndSearch ({
                     {innerForms}
                 </Drawer>
             </Box>
-        </>        
-    );
+        </>
+  );
 });
+
+FiltersAndSearch.displayName = 'FiltersAndSearch';

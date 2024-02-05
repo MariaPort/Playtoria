@@ -1,1 +1,1 @@
-export {GamesList} from './GamesList.jsx';
+export { GamesList } from './GamesList';

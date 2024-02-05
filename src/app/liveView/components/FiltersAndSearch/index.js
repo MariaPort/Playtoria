@@ -1,1 +1,1 @@
-export {FiltersAndSearch} from './FiltersAndSearch.jsx';
+export { FiltersAndSearch } from './FiltersAndSearch';

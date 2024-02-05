@@ -1,16 +1,16 @@
-import { createTheme } from "@mui/material";
-import { createContext, useContext } from "react";
-import { useColorTheme } from "./use-color-theme";
+import { createTheme } from '@mui/material';
+import { createContext, useContext } from 'react';
+import { useColorTheme } from './use-color-theme';
 
 export const ThemeContext = createContext({
-  mode: "dark",
+  mode: 'dark',
   toggleColorMode: () => {},
   theme: createTheme(),
 });
 
 export const ThemeContextProvider = ({ children }) => {
   const value = useColorTheme();
-  
+
   return (
     <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );

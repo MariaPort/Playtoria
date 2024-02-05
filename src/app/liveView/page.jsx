@@ -1,58 +1,63 @@
-"use client"
+'use client';
 
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
-import {searchGamesData} from '@/actions';
+import { searchGamesData } from '../../actions';
 import {
   GamesList,
-  FiltersAndSearch
+  FiltersAndSearch,
 } from './components';
 import {
-  DEFAULTPAGINATION,
-  ITEMSPERPAGE,
+  DEFAULT_PAGINATION,
+  ITEMS_PER_PAGE,
 } from '../constants';
 
-export default function LiveViewPage() {
+export default function LiveViewPage({
+  searchParams,
+}) {
   const [gamesData, setGamesData] = React.useState([]);
-  const [formData, setFormData] = React.useState(null);
   const [isScreenshotsShown, setIsScreenshotsShown] = React.useState('0');
   const [isBackdropOpen, setIsBackdropOpen] = React.useState(false);
-  const [pagination, setPagination] = React.useState(DEFAULTPAGINATION);
+  const [pagination, setPagination] = React.useState(DEFAULT_PAGINATION);
 
-  const handleFilterAndSearchChange = React.useCallback(async (newFormData) => {
+  const handleFilterAndSearchChange = React.useCallback(async () => {
     setGamesData([]);
-    setPagination(DEFAULTPAGINATION);
+    setPagination(DEFAULT_PAGINATION);
     setIsBackdropOpen(true);
-    const response = await searchGamesData(newFormData, DEFAULTPAGINATION);
+    const response = await searchGamesData(DEFAULT_PAGINATION, searchParams);
 
-    setFormData(newFormData);
     setGamesData(response.data);
     setPagination({
-        page: 1,
-        count: response.total > ITEMSPERPAGE ? Math.ceil(response.total / ITEMSPERPAGE) : 1,
-        total: response.total
+      page: 1,
+      count: response.total > ITEMS_PER_PAGE ? Math.ceil(response.total / ITEMS_PER_PAGE) : 1,
+      total: response.total,
     });
 
     setIsBackdropOpen(false);
-  }, []);
+  }, [searchParams]);
+
+  React.useEffect(() => {
+    handleFilterAndSearchChange();
+  }, [handleFilterAndSearchChange]);
 
   const handlePaginationChange = React.useCallback(async (event, value) => {
     setIsBackdropOpen(true);
     const newPagination = {
-        ...pagination,
-        page: value
-    }
+      ...pagination,
+      page: value,
+    };
 
     setPagination(newPagination);
     window.scrollTo(0, 0);
-    const response = await searchGamesData(formData, newPagination);
+
+    const response = await searchGamesData(newPagination, searchParams);
 
     setGamesData(response.data);
     setIsBackdropOpen(false);
-  }, [formData, pagination]);
+  }, [pagination, searchParams]);
 
   return (
     <Container
@@ -66,10 +71,10 @@ export default function LiveViewPage() {
     >
       <Container
         sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'start',
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'start',
         }}
       >
         <Backdrop
@@ -92,28 +97,28 @@ export default function LiveViewPage() {
             flexGrow: '3',
             maxWidth: '1000px',
             marginBottom: '15px',
-            paddingLeft: {xs: '0'},
-            paddingRight: {xs: '0'}
+            paddingLeft: { xs: '0' },
+            paddingRight: { xs: '0' },
           }}
         >
-          <GamesList 
+          <GamesList
             gamesData={gamesData}
             isScreenshotsShown={!!Number(isScreenshotsShown)}
           />
-         {gamesData && gamesData.length !== 0 
-          ? (
+         {gamesData && gamesData.length !== 0
+           ? (
             <Pagination
-                sx={{marginBottom: '15px'}}
-                variant="outlined" 
+                sx={{ marginBottom: '15px' }}
+                variant="outlined"
                 shape="rounded"
                 size="small"
                 onChange={handlePaginationChange}
-                count={pagination.count} 
+                count={pagination.count}
                 page={pagination.page}
             />
-          )
-          : null}
-        </Container>        
+           )
+           : null}
+        </Container>
       </Container>
     </Container>
   );

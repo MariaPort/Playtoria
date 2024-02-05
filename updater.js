@@ -1,5 +1,5 @@
-const {updateXMLLinks} = require('./xml-links-updater.js');
+const { updateXMLLinks } = require('./xml-links-updater');
 
 (async () => {
-    await updateXMLLinks();
+  await updateXMLLinks();
 })();

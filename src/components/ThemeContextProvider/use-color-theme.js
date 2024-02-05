@@ -5,8 +5,7 @@ import { getDesignTokens } from './theme';
 export const useColorTheme = () => {
   const [mode, setMode] = React.useState('dark');
 
-  const toggleColorMode = () =>
-    setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+  const toggleColorMode = () => setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
 
   // const modifiedTheme = React.useMemo(
   //   () =>
@@ -22,11 +21,11 @@ export const useColorTheme = () => {
 
   const modifiedTheme = React.useMemo(
     () => createTheme(getDesignTokens(mode)),
-    [mode]
+    [mode],
   );
 
   return {
-    theme: {...modifiedTheme},
+    theme: { ...modifiedTheme },
     mode,
     toggleColorMode,
   };
