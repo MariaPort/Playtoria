@@ -4,6 +4,12 @@ import * as React from 'react';
 import { prisma } from '../db';
 import { ITEMS_PER_PAGE } from '../app/constants';
 
+const containsSearchFromString = (string) => string.split(' ').map((substr) => ({
+  name: {
+    contains: substr,
+  },
+}));
+
 export const searchGamesData = async (pagination, searchData = null) => {
   let gamesData = [];
   let countResponse = {};
@@ -12,7 +18,7 @@ export const searchGamesData = async (pagination, searchData = null) => {
   const selectQuery = {
     where: {
       AND: [
-        searchData.name ? { name: { contains: searchData.name } } : {},
+        ...(searchData.name ? [...containsSearchFromString(searchData.name)] : []),
         searchData.publisherName ? { publisherName: { contains: searchData.publisherName } } : {},
         searchData.description ? { description: { contains: searchData.description } } : {},
         searchData.storeType && searchData.storeType !== 'all' ? { storeType: { contains: searchData.storeType } } : {},

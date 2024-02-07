@@ -20,7 +20,9 @@ export function DateRangePicker({
   searchParams,
 }) {
   // const [validationMessage, setValidationMessage] = React.useState('');
-  const [startDate, setStartDate] = React.useState(moment(new Date(searchParams.startDate)) || minDate);
+  const [startDate, setStartDate] = React.useState(searchParams.startDate
+    ? moment(new Date(searchParams.startDate))
+    : minDate);
   const [endDate, setEndDate] = React.useState(searchParams.endDate
     ? moment(new Date(searchParams.endDate))
     : moment(new Date()));
