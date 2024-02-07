@@ -22,5 +22,3 @@ export default async function GET(request, context) {
 
   return getServerSideSitemap(fields);
 }
-
-// export default function GamesSitemapPage() {}

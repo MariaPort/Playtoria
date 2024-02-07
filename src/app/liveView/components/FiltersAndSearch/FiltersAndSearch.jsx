@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Global } from '@emotion/react';
 import { styled } from '@mui/material/styles';
 import { grey } from '@mui/material/colors';
@@ -109,14 +109,17 @@ export const categories = [
 ];
 
 export const FiltersAndSearch = React.memo(({
-  searchParams,
   onFormsValueChange = () => {},
-  // isScreenshotsShown,
-  // onIsScreenshotsShownChange,
 }) => {
+  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const [filterAndSearchData, setFilterAndSearchData] = React.useState(searchParams || {});
+  const searchParamsObj = React.useMemo(() => {
+    const objFromEntries = Object.fromEntries([...searchParams]);
+    return objFromEntries;
+  }, [searchParams]);
+
+  const [filterAndSearchData, setFilterAndSearchData] = React.useState(searchParamsObj || {});
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   const [storeType, setStoreType] = React.useState('all');
@@ -159,10 +162,6 @@ export const FiltersAndSearch = React.memo(({
     handleFilterChange(event);
   }, [handleFilterChange]);
 
-  //   const handleIsScreenShotsShownChange = React.useCallback((event) => {
-  //     onIsScreenshotsShownChange(event.target.value);
-  //   }, [onIsScreenshotsShownChange]);
-
   const toggleDrawer = () => () => {
     // if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
     //   return;
@@ -186,7 +185,10 @@ export const FiltersAndSearch = React.memo(({
                   height: '100%',
                 }}
             >
-                <Search onSearchChange={handleSearchChange} />
+                <Search
+                  onSearchChange={handleSearchChange}
+                  searchParams={searchParamsObj}
+                />
 
                 <form onChange={handleFilterChange}>
                     {/* <FormControl sx={{m: 1, marginBottom: '25px'}}>
@@ -208,7 +210,7 @@ export const FiltersAndSearch = React.memo(({
                         <RadioGroup
                             aria-labelledby="storetype"
                             name="storeType"
-                            value={storeType}
+                            value={searchParamsObj.storeType || storeType}
                             onChange={(e) => setStoreType(e.target.value)}
                         >
                             <FormControlLabel value="all" control={<Radio />} label="All" />
@@ -224,7 +226,7 @@ export const FiltersAndSearch = React.memo(({
                             id="category"
                             name="category"
                             label="Category"
-                            value={category}
+                            value={searchParamsObj.category || category}
                             onChange={handleCategoryChange}
                         >
                             {categories.map(({ name, value }) => (
@@ -238,10 +240,18 @@ export const FiltersAndSearch = React.memo(({
                         </Select>
                     </FormControl>
 
-                    <DateRangePicker onFilterChange={handleFilterChange}/>
+                    <DateRangePicker
+                      onFilterChange={handleFilterChange}
+                      searchParams={searchParamsObj}
+                    />
                 </form>
         </Paper>
-  ), [category, handleCategoryChange, handleFilterChange, handleSearchChange, storeType]);
+  ), [category,
+    handleCategoryChange,
+    handleFilterChange,
+    handleSearchChange,
+    searchParamsObj,
+    storeType]);
 
   return (
         <>

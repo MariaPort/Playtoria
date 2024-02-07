@@ -8,11 +8,14 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 
-export function Search({ onSearchChange }) {
+export function Search({
+  onSearchChange,
+  searchParams,
+}) {
   const ref = React.useRef(null);
-  const [name, setName] = React.useState('');
-  const [publisherName, setPublisherName] = React.useState('');
-  const [description, setDescription] = React.useState('');
+  const [name, setName] = React.useState(searchParams.name || '');
+  const [publisherName, setPublisherName] = React.useState(searchParams.publisherName || '');
+  const [description, setDescription] = React.useState(searchParams.description || '');
 
   const handleFormSubmit = (event) => {
     event.preventDefault();

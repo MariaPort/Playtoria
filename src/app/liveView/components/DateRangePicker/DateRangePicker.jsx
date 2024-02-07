@@ -12,12 +12,18 @@ import moment from 'moment';
 
 const maxDate = moment(new Date('2026-12-31T00:00:00.000Z'));
 const minDate = moment(new Date('2008-01-01T00:00:00.000Z'));
+// "2022-01-12T20:00:00.000Z"
 
 // TODO: Add validation
-export function DateRangePicker({ onFilterChange }) {
+export function DateRangePicker({
+  onFilterChange,
+  searchParams,
+}) {
   // const [validationMessage, setValidationMessage] = React.useState('');
-  const [startDate, setStartDate] = React.useState(minDate);
-  const [endDate, setEndDate] = React.useState(moment(new Date()));
+  const [startDate, setStartDate] = React.useState(moment(new Date(searchParams.startDate)) || minDate);
+  const [endDate, setEndDate] = React.useState(searchParams.endDate
+    ? moment(new Date(searchParams.endDate))
+    : moment(new Date()));
 
   const handleDateChange = React.useCallback((name, value) => {
     const newDate = new Date(value.toDate().setHours(0, 0, 0, 0)).toISOString();
