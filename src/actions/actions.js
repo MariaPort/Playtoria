@@ -10,10 +10,63 @@ const containsSearchFromString = (string) => string.split(' ').map((substr) => (
   },
 }));
 
+export const searchGamesDataRaw = async (pagination, searchData = null) => {
+  let gamesData = [];
+  let countResponse = {};
+  const skipValue = pagination.page > 1 ? (pagination.page - 1) * ITEMS_PER_PAGE : 0;
+
+  if (searchData && Object.keys(searchData).length !== 0) {
+    console.log(`
+    SELECT * FROM Game
+    WHERE
+    ${searchData.name ? `name LIKE ${searchData.name}` : ''}
+    LIMIT ${ITEMS_PER_PAGE} OFFSET ${skipValue}
+  `);
+
+    gamesData = await prisma.$queryRaw`
+      SELECT * FROM Game
+      WHERE name LIKE ${searchData.name}
+      AND
+      categoryName LIKE ${searchData.category}
+      AND
+      publisherName LIKE ${searchData.publisherName}
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${skipValue}
+    `;
+
+    countResponse = await prisma.$queryRaw`
+      SELECT COUNT (*) FROM Game
+      WHERE
+      ${searchData.name ? `name LIKE ${searchData.name}` : ''}
+    `;
+  } else {
+    gamesData = await prisma.$queryRaw`
+      SELECT * FROM Game
+      WHERE name LIKE '%ropes%'
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${skipValue}
+    `;
+
+    countResponse = await prisma.$queryRaw`
+      SELECT COUNT (*) FROM Game
+    `;
+  }
+
+  console.log({
+    data: gamesData,
+    total: Number(countResponse[0]['COUNT (*)']),
+  });
+
+  return {
+    data: gamesData,
+    total: Number(countResponse[0]['COUNT (*)']),
+  };
+};
+
 export const searchGamesData = async (pagination, searchData = null) => {
   let gamesData = [];
   let countResponse = {};
   const skipValue = pagination.page > 1 ? (pagination.page - 1) * ITEMS_PER_PAGE : 0;
+
+  // await searchGamesDataRaw(pagination, searchData);
 
   const selectQuery = {
     where: {

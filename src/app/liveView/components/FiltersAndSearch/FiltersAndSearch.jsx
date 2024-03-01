@@ -108,6 +108,15 @@ export const categories = [
   },
 ];
 
+const removeEmptyAttributes = (obj) => {
+  Object.keys(obj).forEach(
+    // eslint-disable-next-line no-param-reassign
+    (key) => !obj[key] && delete obj[key],
+  );
+
+  return obj;
+};
+
 export const FiltersAndSearch = React.memo(({
   onFormsValueChange = () => {},
 }) => {
@@ -131,16 +140,20 @@ export const FiltersAndSearch = React.memo(({
 
   const handleFilterAndSearchDataChanged = React.useCallback((newFilterAndSearchData) => {
     const newSearchParams = new URLSearchParams(newFilterAndSearchData);
-    router.push(`/liveView?${newSearchParams.toString()}`);
 
+    if (newSearchParams.toString()) {
+      router.push(`/liveView?${newSearchParams.toString()}`);
+    } else {
+      router.push('/liveView');
+    }
     // onFormsValueChange();
   }, [router]);
 
   const handleSearchChange = React.useCallback((searchData) => {
-    const newFilterAndSearchData = {
+    const newFilterAndSearchData = removeEmptyAttributes({
       ...filterAndSearchData,
       ...searchData,
-    };
+    });
 
     setFilterAndSearchData(newFilterAndSearchData);
     handleFilterAndSearchDataChanged(newFilterAndSearchData);
@@ -191,20 +204,6 @@ export const FiltersAndSearch = React.memo(({
                 />
 
                 <form onChange={handleFilterChange}>
-                    {/* <FormControl sx={{m: 1, marginBottom: '25px'}}>
-                        <FormLabel id="screenshots">Screenshots</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="screenshots"
-                            name="screenshots"
-                            value={isScreenshotsShown}
-                            onChange={handleIsScreenShotsShownChange}
-                        >
-                            <FormControlLabel value={1} control={<Radio />} label="On" />
-                            <FormControlLabel value={0} control={<Radio />} label="Off" />
-                        </RadioGroup>
-                    </FormControl> */}
-
                     <FormControl sx={{ m: 1, marginBottom: '25px' }}>
                         <FormLabel id="storetype">Store Type</FormLabel>
                         <RadioGroup
