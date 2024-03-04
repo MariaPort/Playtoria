@@ -1,3 +1,5 @@
+'use client';
+
 import { createTheme } from '@mui/material';
 import { createContext, useContext } from 'react';
 import { useColorTheme } from './use-color-theme';

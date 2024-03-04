@@ -1,5 +1,6 @@
 export {
   searchGamesData,
+  searchGamesDataRaw,
   searchGameDataById,
   getGamesDataIdsBatch,
   getGamesDataIdsCount,
