@@ -4,6 +4,7 @@ import {
   LayoutWrapper,
   Header,
 } from '../components';
+import GoogleAnalytics from './GoogleAnalytics';
 
 export const metadata = {
   title: 'Playtoria',
@@ -14,16 +15,11 @@ export const metadata = {
 //   {text: 'Top Charts', href: '/top', icon: EmojiEventsIcon},
 // ];
 
-// const PLACEHOLDER_LINKS = [
-//   { text: 'Settings', icon: SettingsIcon },
-//   { text: 'Support', icon: SupportIcon },
-//   { text: 'Logout', icon: LogoutIcon },
-// ];
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
+        <GoogleAnalytics />
         <LayoutWrapper>
           <Header />
 

@@ -19,12 +19,9 @@ import { DATE_FORMATS } from '../../../constants';
 export function AppInfoPage({
   gameData,
 }) {
-  console.log(gameData);
   const parsedDate = React.useMemo(() => (
     gameData ? moment(gameData.releaseDate).format(DATE_FORMATS.ddmmyyyy) : ''), [gameData]);
-
   const parsedGallery = React.useMemo(() => (gameData ? JSON.parse(gameData.gallery).flat() : []), [gameData]);
-
   const parsedDescription = React.useMemo(() => (gameData ? parse(gameData.description) : ''), [gameData]);
 
   return (
