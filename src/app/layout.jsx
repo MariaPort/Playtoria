@@ -1,10 +1,10 @@
 import * as React from 'react';
+import { GoogleTagManager } from '@next/third-parties/google';
 import Box from '@mui/material/Box';
 import {
   LayoutWrapper,
   Header,
 } from '../components';
-import GoogleAnalytics from './GoogleAnalytics';
 
 export const metadata = {
   title: 'Playtoria',
@@ -19,7 +19,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <GoogleAnalytics />
         <LayoutWrapper>
           <Header />
 
@@ -27,6 +26,7 @@ export default function RootLayout({ children }) {
             {children}
           </Box>
         </LayoutWrapper>
+        <GoogleTagManager gtmId='G-E3GLMZ2GFD' />
       </body>
     </html>
   );
