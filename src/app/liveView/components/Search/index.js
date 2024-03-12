@@ -1,1 +1,1 @@
-export {Search} from './Search.jsx';
+export { Search } from './Search';
